@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Plazos registrales</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Plazos registrales</h1>
+      <form id="dateForm" class="modern-form">
+        <div class="form-group">
+          <label for="certificado">Fecha de certificado:</label>
+          <input type="date" id="certificado" name="certificado" required />
+        </div>
+
+        <div class="form-group">
+          <label for="escritura">Fecha de escritura:</label>
+          <input type="date" id="escritura" name="escritura" required />
+        </div>
+
+        <div class="form-group">
+          <label for="entrada">Fecha de entrada:</label>
+          <input type="date" id="entrada" name="entrada" required />
+        </div>
+
+        <div class="botonera">
+          <input
+            type="submit"
+            value="Calcular Diferencia"
+            class="submit-button"
+          />
+        </div>
+        <div class="resultado">
+          <p id="resultado"></p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("dateForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const certificado = new Date(
+            document.getElementById("certificado").value
+          );
+          const escritura = new Date(
+            document.getElementById("escritura").value
+          );
+
+          const entrada = new Date(document.getElementById("entrada").value);
+
+          const usaCertificado = escritura - certificado;
+          const diasCertificado = usaCertificado / (1000 * 3600 * 24) + 1;
+
+          const enTermino = entrada - escritura;
+          const diasTermino = enTermino / (1000 * 3600 * 24);
+
+          document.getElementById(
+            "resultado"
+          ).innerHTML = `Plazo certificado ${diasCertificado} días, y plazo escritura ${diasTermino} dias`;
+        });
+    </script>
+  </body>
+</html>
